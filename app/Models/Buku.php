@@ -3,8 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
-class Buku extends Model
+class buku extends Model
 {
-    //
+    public function pull($perpus, $z){
+        return DB::table($perpus)->where($z)->first();
+    }
+
+    public function tampil($table)
+    {
+        return DB::table($table)->get();
+    }
+
+    public function tambah($table, $data)
+    {
+        return DB::table($table)->insert($data);
+    }
 }

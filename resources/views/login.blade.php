@@ -6,7 +6,7 @@
     <title>LOGIN</title>
 </head>
 <body>
-    <h2>LOGIN</h2>
+    <h2>LOGIN LIBRARY MANAGEMENT SYSTEM </h2>
     <form method="POST" action="/login">
         @csrf
         <label for="name">username:</label>
@@ -16,6 +16,7 @@
         <input type="password" name="p"  required><br>
         
         <button type="submit">Login</button>
+         <button><a href="/register">register</a></button>
 
     </form>
 </body>
