@@ -45,5 +45,6 @@
 
     </table>
     <button><a href="/logout">Logout</a></button>
+    <button><a href="/homebuku">Peminjaman</a></button>
 </body>
 </html>

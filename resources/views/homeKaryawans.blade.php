@@ -6,11 +6,11 @@
     <title>Home</title>
 </head>
 <body>
-    <h1>Welcome Petugas <?php echo session('u')?> to the Library Management System</h1>
+    <h1>Welcome Karyawan <?php echo session('u')?> to the Library Management System</h1>
       <table border='1' width='550'>
         <tr>
             <th>No</th>
-            <th>Nama petugas</th>
+            <th>Nama Karyawan</th>
             <th>Gender</th>
             <th>level</th>
             <th>Jabatan</th>
@@ -20,7 +20,7 @@
 
         <?php
         $no=1;
-        foreach ($petugas as $key => $value) {
+        foreach ($karyawan as $key => $value) {
         ?>
 
         <tr>
@@ -46,6 +46,8 @@
         ?>
 
     </table>
+        <button><a href="/homebuku">Buku</a></button>
     <button><a href="/logout">Logout</a></button>
+
 </body>
 </html>

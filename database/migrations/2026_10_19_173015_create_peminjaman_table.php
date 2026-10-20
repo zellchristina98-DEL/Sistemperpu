@@ -10,13 +10,13 @@ return new class extends Migration
     {
         Schema::create('peminjaman', function (Blueprint $table) {
             $table->id('IDPeminjaman');
-            $table->unsignedBigInteger('IDSiswa'); // Diubah menjadi unsignedBigInteger
-            $table->unsignedBigInteger('IDPetugas'); // Diubah menjadi unsignedBigInteger
+            $table->unsignedBigInteger('IDSiswa'); 
+            $table->unsignedBigInteger('IDPetugas'); 
             $table->date('TglPeminjaman');
             $table->string('Status', 50);
             $table->timestamps();
 
-            // Foreign Key
+          
             $table->foreign('IDSiswa')->references('IDSiswa')->on('siswas')->onDelete('cascade');
             $table->foreign('IDPetugas')->references('IDPetugas')->on('petugas')->onDelete('cascade');
         });

@@ -12,14 +12,18 @@ class login extends Controller
         return view('login');
     }
 
-    public function petugas()
+    public function karyawan()
     {
-        return view('homePetugas');
+        $jalur = new buku;
+        $data['karyawan'] = $jalur->tampil('petugas'); 
+        return view('homeKaryawans', $data);
     }
 
     public function siswa()
     {
-        return view('homeSiswa');
+        $jalur = new buku;
+        $data['siswa'] = $jalur->tampil('siswas');
+        return view('homeSiswa', $data);
     }
 
     public function aksilogout()
@@ -30,8 +34,8 @@ class login extends Controller
 
     public function aksilogin(Request $request)
     {
-        $username =$request->input('u');
-        $password =$request->input('p');
+        $username = $request->input('u');
+        $password = $request->input('p');
 
         $jalur = new buku;
         $whereUser = array(
@@ -39,7 +43,7 @@ class login extends Controller
             'password' => $password
         );
 
-        $hasilUser = $jalur->pull('users',$whereUser);
+        $hasilUser = $jalur->pull('users', $whereUser);
 
         if ($hasilUser) {
             session([
@@ -47,11 +51,11 @@ class login extends Controller
                 'iduser' => $hasilUser->iduser
             ]);
 
-            $cekPetugas = $jalur->pull('petugas', ['iduser' =>$hasilUser->iduser]);
-            if ($cekPetugas) {
-                return redirect()->intended('/homePetugas');
+            $cekKaryawan = $jalur->pull('petugas', ['iduser' => $hasilUser->iduser]);
+            if ($cekKaryawan) {
+                return redirect()->intended('/homeKaryawans');
             }
-            $cekSiswa = $jalur->pull('siswas', ['IDUser' =>$hasilUser->iduser]);
+            $cekSiswa = $jalur->pull('siswas', ['IDUser' => $hasilUser->iduser]);
             if ($cekSiswa) {
                 return redirect()->intended('/homeSiswa');
             }
@@ -60,42 +64,31 @@ class login extends Controller
         return redirect('/')->withErrors(['msg' => 'Username atau Password salah!']);
     }
 
-    public function homepetugas()
-    {
-        $jalur = new buku;
-        $data['petugas'] =$jalur->tampil('petugas'); 
-        return view('homePetugas', $data);
-    }
-
-    public function homesiswa()
-    {
-        $jalur = new buku;
-        $data['siswa'] =$jalur->tampil('siswas');
-        return view('homeSiswa', $data);
-    }
-
     public function inputsiswa()
     {
         return view('inputsiswa');
     }
-       public function inputdata()
+
+    public function inputdata()
     {
         return view('register');
     }
-     public function inputpetugas()
+
+    public function inputkry()
     {
-        $jalur= new buku;
-        $data['petugas'] =$jalur->tampil('jabatans'); 
-        return view('inputPetugas',$data);
+        $jalur = new buku;
+        $data['petugas'] = $jalur->tampil('jabatans'); 
+        return view('inputKaryawan', $data);
     }
+
     public function aksiinputsiswa(Request $request)
     {
-        $us     =$request->input('us');
-        $p      =$request->input('p');
-        $e      =$request->input('e');
-        $nsiswa =$request->input('nsiswa');
-        $rombel =$request->input('rombel');
-        $nis    =$request->input('nis');
+        $us     = $request->input('us');
+        $p      = $request->input('p');
+        $e      = $request->input('e');
+        $nsiswa = $request->input('nsiswa');
+        $rombel = $request->input('rombel');
+        $nis    = $request->input('nis');
 
         $jalur = new buku;
         $dataUser = array(
@@ -103,8 +96,8 @@ class login extends Controller
             "password" => $p,
             "Email"    => $e
         );
-        $jalur->tambah('users',$dataUser);
-        $userBaru = $jalur->pull('users', ['username' =>$us]);
+        $jalur->tambah('users', $dataUser);
+        $userBaru = $jalur->pull('users', ['username' => $us]);
 
         if ($userBaru) {
             $dataSiswa = array(
@@ -113,24 +106,27 @@ class login extends Controller
                 "Rombel"    => $rombel,
                 "NIS"       => $nis
             );
-            $jalur->tambah('siswas',$dataSiswa);
+            $jalur->tambah('siswas', $dataSiswa);
         }
 
         return redirect('/');
     }
- public function aksiinputpetugas(Request $request){
+
+    public function aksiinputkry(Request $request)
+    {
         $us      = $request->input('us');
         $p       = $request->input('p');
         $e       = $request->input('e');
         $ptgs    = $request->input('ptgs');
         $jk      = $request->input('jk');
         $jabatan = $request->input('jbt'); 
-         $jalur = new buku;
-         $dataUser = array(
+
+        $jalur = new buku;
+        $dataUser = array(
             "username" => $us,
             "password" => $p,
             "Email"    => $e
-         );
+        );
         $jalur->tambah('users', $dataUser);
         $userBaru = $jalur->pull('users', ['username' => $us]);
 
@@ -139,11 +135,43 @@ class login extends Controller
                 "Iduser"       => $userBaru->iduser,
                 "nama_petugas" => $ptgs,
                 "Gender"       => $jk,
-                "Level"        => "Petugas",
+                "Level"        => "Karyawan",
                 "IDJabatan"    => $jabatan 
             );
             $jalur->tambah('petugas', $dataPetugas);
         }
-        return redirect('/')->with('success','Registrasi petugas berhasil disimpan');
-}
+        return redirect('/')->with('success', 'Registrasi karyawan berhasil disimpan');
+    }
+
+
+    public function inputbuku()
+    {
+        return view('inputbuku');
+    }
+     public function buku()
+    {
+        $jalur = new buku;
+        $data['buku'] = $jalur->tampil('buku'); 
+        return view('homebuku', $data);
+    }
+     public function aksibuku(Request $request)
+    {
+        $judul     = $request->input('judul');
+        $pengarang = $request->input('pengarang');
+        $penerbit  = $request->input('penerbit');
+        $thnterbit  = $request->input('thn');
+        $stok      = $request->input('stok');
+
+        $dataBuku = [
+            'JudulBuku' => $judul,
+            'Pengarang'  => $pengarang,
+            'Penerbit'   => $penerbit,
+            'TahunTerbit'   => $thnterbit,
+            'Stok'       => $stok
+        ];
+        
+        $jalur = new buku;
+       $jalur->tambah('buku', $dataBuku);
+        return redirect('/homebuku')->with('success', 'Data buku berhasil disimpan');
+    }
 }

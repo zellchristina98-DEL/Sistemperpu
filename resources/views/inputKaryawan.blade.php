@@ -6,8 +6,8 @@
     <title>Sign Up Petugas</title>
 </head>
 <body>
-    <h1>Sign Up Petugas</h1>
-    <form action="/ptgs" method="POST">
+    <h1>Input Data Karyawan</h1>
+    <form action="/krywn" method="POST">
         @csrf
         <table>
             <tr>
@@ -23,7 +23,7 @@
                 <td><input type="email" name="e" required></td>
             </tr>
             <tr>
-                <td><label for="nptgs">Nama petugas</label></td>
+                <td><label for="nptgs">Nama karyawan</label></td>
                 <td><input type="text" name="ptgs" required></td>
             </tr>
             <tr>

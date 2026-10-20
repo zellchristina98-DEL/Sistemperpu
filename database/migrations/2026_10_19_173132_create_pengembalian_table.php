@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('pengembalian', function (Blueprint $table) {
             $table->id('IDPengembalian');
-            $table->unsignedBigInteger('IDPeminjaman'); // Ubah dari integer menjadi unsignedBigInteger
+            $table->unsignedBigInteger('IDPeminjaman');
             $table->date('TglPengembalian');
             $table->string('KondisiBuku', 50);
             $table->timestamps();

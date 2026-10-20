@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up Siswa</title>
+    <title>Input Data Siswa</title>
 </head>
 <body>
     <h1>Sign Up Siswa</h1>

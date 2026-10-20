@@ -3,19 +3,20 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\login;
 
-Route::get('/','App\Http\Controllers\login@index');
-Route::post('/login','App\Http\Controllers\login@aksilogin');
-Route::get('/logout','App\Http\Controllers\login@aksilogout');
+Route::get('/', 'App\Http\Controllers\login@index');
+Route::post('/login', 'App\Http\Controllers\login@aksilogin');
+Route::get('/logout', 'App\Http\Controllers\login@aksilogout');
 
-Route::get('/homePetugas','App\Http\Controllers\login@petugas');
-Route::get('/homeSiswa','App\Http\Controllers\login@siswa');
-Route::get('/register','App\Http\Controllers\login@inputdata');
+Route::get('/homeKaryawans', 'App\Http\Controllers\login@karyawan');
+Route::get('/homeSiswa', 'App\Http\Controllers\login@siswa');
+Route::get('/register', 'App\Http\Controllers\login@inputdata');
 
-Route::get('/inputsiswa','App\Http\Controllers\login@inputsiswa');
-Route::post('/swa','App\Http\Controllers\login@aksiinputsiswa');
+Route::get('/inputsiswa', 'App\Http\Controllers\login@inputsiswa');
+Route::post('/swa', 'App\Http\Controllers\login@aksiinputsiswa');
 
-Route::get('/inputPetugas','App\Http\Controllers\login@inputpetugas');
-Route::post('/ptgs','App\Http\Controllers\login@aksiinputpetugas');
+Route::get('/inputkry', 'App\Http\Controllers\login@inputkry');
+Route::post('/krywn', 'App\Http\Controllers\login@aksiinputkry');
 
-Route::get('/homePetugas','App\Http\Controllers\login@homepetugas');
-Route::get('/homeSiswa','App\Http\Controllers\login@homesiswa');
+Route::get('/homebuku', 'App\Http\Controllers\login@buku');
+Route::get('/inputbuku', 'App\Http\Controllers\login@inputbuku');
+Route::post('/BUKU', 'App\Http\Controllers\login@aksibuku');
