@@ -20,3 +20,7 @@ Route::post('/krywn', 'App\Http\Controllers\login@aksiinputkry');
 Route::get('/homebuku', 'App\Http\Controllers\login@buku');
 Route::get('/inputbuku', 'App\Http\Controllers\login@inputbuku');
 Route::post('/BUKU', 'App\Http\Controllers\login@aksibuku');
+
+Route::get('/edit/{buku}','App\Http\Controllers\login@editbuku');
+Route::put('/edit/{buku}','App\Http\Controllers\login@updatebuku');
+Route::delete('/delete/{buku}','App\Http\Controllers\login@deletebuku');

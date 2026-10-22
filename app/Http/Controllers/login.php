@@ -143,7 +143,7 @@ class login extends Controller
         return redirect('/')->with('success', 'Registrasi karyawan berhasil disimpan');
     }
 
-
+//buku
     public function inputbuku()
     {
         return view('inputbuku');
@@ -173,5 +173,31 @@ class login extends Controller
         $jalur = new buku;
        $jalur->tambah('buku', $dataBuku);
         return redirect('/homebuku')->with('success', 'Data buku berhasil disimpan');
+    }
+
+     public function editbuku($IDBuku){
+    $jalur = new buku;
+    $buku = $jalur->pull('buku', ['IDBuku' => $IDBuku]); 
+    return view('editbuku', ['buku' => $buku]);
+}
+
+public function updatebuku(Request $request, $IDBuku)
+{
+    $dataBuku = [
+        'JudulBuku'   => $request->input('JudulBuku'),
+        'Pengarang'   => $request->input('Pengarang'),
+        'Penerbit'    => $request->input('Penerbit'),
+        'TahunTerbit' => $request->input('TahunTerbit'),
+        'Stok'        => $request->input('Stok')
+    ];
+    $jalur= new buku;
+    $buku = $jalur->perbaruiData('buku', $dataBuku, $IDBuku);
+    return redirect('/homebuku');
+}
+
+    public function deletebuku($IDBuku)
+    {
+        buku::where('IDBuku', $IDBuku)->delete();
+        return redirect('/homeBuku');
     }
 }
