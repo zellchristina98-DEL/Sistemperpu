@@ -21,8 +21,6 @@ class buku extends Model
         return DB::table($table)->insert($data);
     }
 
-
-
     public function perbaruiData($table, $data, $IDBuku)
 {
     return \DB::table($table)->where('IDBuku', $IDBuku)->update($data);

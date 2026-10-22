@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
+@extends('template')
+@section('content')
+
     <h1>Welcome Karyawan <?php echo session('u')?> to the Library Management System</h1>
-      <table border='1' width='550'>
+      <table  class="table table-striped" width='550'>
         <tr>
             <th>No</th>
             <th>Nama Karyawan</th>
@@ -46,8 +41,7 @@
         ?>
 
     </table>
-        <button><a href="/homebuku">Buku</a></button>
+        <button  class="btn btn-warning"><a href="/homebuku">Buku</a></button>
     <button><a href="/logout">Logout</a></button>
+    @endsection
 
-</body>
-</html>
