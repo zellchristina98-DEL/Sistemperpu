@@ -41,21 +41,23 @@
                 <td><input type="radio" name="jk" value="Pria" required>Pria</td>
                 <td><input type="radio" name="jk" value="Wanita" required>Wanita</td>
             </tr>
-            <tr>
-               <td><label for="jabatan">jabatan</label></td>
-<td>
-    <select name="jbt" required>
-        <option>pilih</option>
-        <?php
-        foreach ($petugas as $key => $value) {
-            ?>
-        <option value="<?= $value->IDJabatan ?>">
-                    <?= $value->NamaJabatan ?>
-                </option>
+
+
+        <tr>
+            <td><label for="Jabatan">Jabatan</label></td>
+            <td>
+            <select name="jbt" required>
+            <option value="">pilih</option>
+            <?php
+              foreach ($karyawan as $key => $value) {
+        ?>
+        <option value="<?= $value->IDJabatan?>">
+            <?= $value->NamaJabatan?>   </option>
         <?php } ?>
-    </select>
+</select>
 </td>
 </tr>
+
                 <td><button type="submit">Daftar Petugas</button></td>
                  <td><button><a href=/logout>logout</a></button><td>
             </tr>

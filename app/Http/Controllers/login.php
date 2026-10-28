@@ -75,10 +75,10 @@ class login extends Controller
     }
 
     public function inputkry()
-    {
+    { 
         $jalur = new buku;
-        $data['petugas'] = $jalur->tampil('jabatans'); 
-        return view('inputKaryawan', $data);
+        $data['karyawan'] = $jalur->tampil('jabatans'); 
+        return view('inputKaryawan',$data);
     }
 
     public function aksiinputsiswa(Request $request)
@@ -200,4 +200,58 @@ public function updatebuku(Request $request, $IDBuku)
         buku::where('IDBuku', $IDBuku)->delete();
         return redirect('/homeBuku');
     }
+
+
+     public function peminjaman()
+    {     $jalur = new buku;
+          $data['peminjaman'] = $jalur->peminjamanjoin(); 
+        return view('homepeminjaman', $data);
+    }
+     public function inputpeminjaman()
+     {
+       $jalur = new buku;
+        $data['siswa'] = $jalur->tampil('siswas');
+        $data['petugas'] = $jalur->tampil('petugas');
+        $data['buku']    = $jalur->tampil('buku');
+        return view('inputpeminjaman',$data);
+    }
+ public function aksipeminjaman(Request $request)
+{
+    $idsiswa     = $request->input('idsiswa');
+    $idpetugas   = $request->input('idpetugas');
+    $tglpinjam   = $request->input('tglpinjam');
+    $status      = $request->input('status');
+    $idbuku      = $request->input('idbuku');
+    $jumlah      = $request->input('jumlah');
+
+    $dataPeminjaman = [
+        'IDSiswa'       => $idsiswa,
+        'IDPetugas'     => $idpetugas,
+        'TglPeminjaman' => $tglpinjam,
+        'Status'        => $status
+    ];
+
+    $jalur = new buku;
+    $idPeminjamanBaru = $jalur->tambah('peminjaman', $dataPeminjaman);
+
+    $dataDetail = [
+        'IDPeminjaman' => $idPeminjamanBaru,
+        'IDBuku'       => $idbuku,
+        'Jumlah'       => $jumlah
+    ];
+    $jalur->tambah('detail_peminjaman', $dataDetail);
+
+    return redirect('/homepeminjaman');
+}
+
+        public function detail($id)
+    {       $jalur = new buku;
+        $data['detailPeminjaman'] = $jalur->detailjoin();
+        return view('homedetail', $data);
+    }
+public function denda(){
+     $jalur = new buku;
+        $data['denda'] = $jalur->dendajoin(); 
+        return view('homedenda', $data);
+}
 }
