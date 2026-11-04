@@ -23,7 +23,7 @@ class buku extends Model
 
     public function perbaruiData($table, $data, $IDBuku)
 {
-    return \DB::table($table)->where('IDBuku', $IDBuku)->update($data);
+    return DB::table($table)->where('IDBuku', $IDBuku)->update($data);
 }
 public function peminjamanjoin(){
     return DB::table('peminjaman')
