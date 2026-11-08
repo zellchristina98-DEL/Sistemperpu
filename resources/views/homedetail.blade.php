@@ -1,7 +1,17 @@
 @extends('template')
 
 @section('content')
-    <h1 class="mb-4 fw-bold">Detail Buku Peminjaman</h1>
+<style>
+    #main {
+        background-image: url("{{ asset('assets/img/3.jpg') }}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        min-height: 100vh;
+    }
+</style>
+    <h2 class="mb-4 fw-bold text-white">Detail Buku Peminjaman</h1>
             <div class="table-responsive">
         <table class="table table-striped table-hover align-middle">
             <thead class="table-dark">

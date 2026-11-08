@@ -1,7 +1,17 @@
 @extends('template')
 
 @section('content')
-    <h2 class="mb-4 fw-bold text-dark">Daftar Peminjaman Library Management System</h2>
+<style>
+    #main {
+        background-image: url("{{ asset('assets/img/3.jpg') }}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        min-height: 100vh;
+    }
+</style>
+     <h2 class="mb-4 fw-bold text-white">Daftar Peminjaman Library Management System</h2>
     
     <div class="mb-3 d-flex gap-2">
         <a href="/inputpeminjaman" class="btn btn-primary btn-sm"><i class="fa-solid fa-plus me-1"></i> Tambah Data Peminjaman</a>

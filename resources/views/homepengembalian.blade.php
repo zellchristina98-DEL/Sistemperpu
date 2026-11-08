@@ -1,9 +1,18 @@
-
 @extends('template')
 
 @section('content')
-    <h2 class="mb-4 fw-bold text-dark">Daftar Pengembalian Library Management System</h2>
-    
+<style>
+    #main {
+        background-image: url("{{ asset('assets/img/3.jpg') }}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        min-height: 100vh;
+    }
+</style>
+     <h2 class="mb-4 fw-bold text-white">Daftar Pengembalian Library Management System</h2>
+
     <div class="mb-3 d-flex gap-2">
         <a href="/inputpengembalian" class="btn btn-primary btn-sm"><i class="fa-solid fa-plus me-1"></i> Tambah Data Pengembalian</a>
     </div>
@@ -13,7 +22,7 @@
             <thead class="table-dark">
                 <tr>
                     <th>No</th>
-                    <th>ID Peminjaman</th>
+                    <th>Nama Siswa</th>
                     <th>Tanggal Pengembalian</th>
                     <th>Kondisi Buku</th>
                     <th class="text-center">Edit</th>
@@ -27,7 +36,7 @@
                 ?>
                 <tr>
                     <td><?= $no++ ?></td>
-                    <td class="fw-semibold"><?= $value->IDPeminjaman ?></td>
+                    <td class="fw-semibold"><?= $value->NamaSiswa ?></td>
                     <td><?= $value->TglPengembalian ?></td>
                     <td>
                         <span class="badge bg-secondary"><?= $value->KondisiBuku ?></span>

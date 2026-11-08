@@ -1,37 +1,138 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Input Data Denda</title>
-</head>
-<body>
-    <h1>Input Data Denda</h1>
-    <form action="/denda" method="POST">
-        @csrf
-        <table>
-            <tr>
-                <td><label for="alasandenda">Alasan Denda</label></td>
-                <td><input type="text" name="alasandenda" required></td>
-            </tr>
-            <tr>
-                <td><label for="jumlahdenda">Jumlah Denda</label></td>
-                <td><input type="number" name="jumlahdenda" required></td>
-            </tr>
-            <tr>
-                <td><label for="statusbayar">Status Bayar</label></td>
-                <td>
-                    <select name="statusbayar" required>
-                        <option value="TUNTAS">TUNTAS</option>
-                        <option value="BELUM TUNTAS">BELUM TUNTAS</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td><button type="submit">Simpan Denda</button></td>
-                <td><button type="button"><a href="/homedenda">Kembali</a></button></td>
-            </tr>
-        </table>
-    </form>
-</body>
-</html>
+ @extends('template')
+
+@section('content')
+
+<style>
+    body {
+        background: #9676CC;
+        min-height: 100vh;
+        margin: 0;
+    }
+
+    #header, .header, #sidebar, .sidebar {
+        display: none !important;
+    }
+
+    #main, .main {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+
+    .edit-container {
+        width: 500px;
+        max-width: 95%;
+        background: linear-gradient(135deg, rgba(222,229,255,0.96), rgba(238,220,255,0.96));
+        border-radius: 18px;
+        padding: 20px 30px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    .edit-container h2 {
+        color: #493477;
+        font-weight: bold;
+        margin-bottom: 12px;
+    }
+
+    .edit-container table {
+        width: 100%;
+    }
+
+    .edit-container td {
+        padding: 4px 5px;
+    }
+
+    .edit-container input,
+    .edit-container select {
+        width: 100%;
+        padding: 7px;
+        border: 1px solid #b9a6dc;
+        border-radius: 7px;
+    }
+
+    .btn-save {
+        background: #9676CC;
+        color: white;
+        border: none;
+        padding: 8px 22px;
+        border-radius: 7px;
+        cursor: pointer;
+    }
+
+    .btn-kembali {
+        background: #6c6280;
+        color: white;
+        padding: 8px 18px;
+        border-radius: 7px;
+        text-decoration: none;
+        display: inline-block;
+    }
+</style>
+
+<div class="d-flex justify-content-center align-items-center w-100 py-3" style="min-height: 100vh;">
+
+    <div class="edit-container">
+
+        <h2 class="text-center">INPUT DATA DENDA</h2>
+
+        <form action="/aksidenda" method="POST">
+            @csrf
+
+            <table>
+                <tr>
+                    <td><label>Nama Siswa:</label></td>
+                    <td>
+                        <select name="idsiswa" required>
+                            <option value="">-- Pilih Siswa --</option>
+                            @foreach ($siswa as $s)
+                                <option value="{{ $s->IDSiswa }}">
+                                    {{ $s->NamaSiswa }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </td>
+                </tr>
+
+              <tr>
+    <td><label>Alasan Denda:</label></td>
+    <td>
+        <select name="alasandenda" required>
+            <option value="">-- Pilih Alasan --</option>
+            <option value="RUSAK">RUSAK</option>
+            <option value="HILANG">HILANG</option>
+        </select>
+    </td>
+</tr>
+
+                <tr>
+                    <td><label>Jumlah Denda:</label></td>
+                    <td>
+                        <input type="number" name="jumlahdenda" required>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label>Status Bayar:</label></td>
+                    <td>
+                        <select name="statusbayar" required>
+                            <option value="TUNTAS">TUNTAS</option>
+                            <option value="BELUM TUNTAS">BELUM TUNTAS</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" class="text-center pt-2">
+                        <button type="submit" class="btn-save">Save</button>
+                        <a href="/homedenda" class="btn-kembali">Back</a>
+                    </td>
+                </tr>
+            </table>
+
+        </form>
+
+    </div>
+
+</div>
+
+@endsection
