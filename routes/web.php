@@ -11,6 +11,9 @@ Route::get('/register', 'App\Http\Controllers\login@inputdata');
 Route::get('/homeSiswa', 'App\Http\Controllers\login@siswa');
 Route::get('/inputsiswa', 'App\Http\Controllers\login@inputsiswa');
 Route::post('/swa', 'App\Http\Controllers\login@aksiinputsiswa');
+Route::get('/editsiswa/{IDSiswa}', 'App\Http\Controllers\login@editsiswa');
+Route::put('/editsiswa/{IDSiswa}', 'App\Http\Controllers\login@updatesiswa');
+Route::delete('/deletesiswa/{IDSiswa}', 'App\Http\Controllers\login@deletesiswa');
 
 Route::get('/homeKaryawans', 'App\Http\Controllers\login@karyawan');
 Route::get('/inputkry', 'App\Http\Controllers\login@inputkry');
@@ -48,3 +51,6 @@ Route::post('/simpanpengembalian', 'App\Http\Controllers\login@aksipengembalian'
 Route::get('/edit-pengembalian/{id}', 'App\Http\Controllers\login@editpengembalian');
 Route::post('/aksieditpengembalian/{id}', 'App\Http\Controllers\login@aksieditpengembalian');
 Route::delete('/deletepengembalian/{id}', 'App\Http\Controllers\login@deletepengembalian');
+
+Route::get('/datalaporan', 'App\Http\Controllers\login@aksitanggal');
+Route::get('/excel', 'App\Http\Controllers\login@aksiexcel');

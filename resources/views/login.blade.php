@@ -10,6 +10,10 @@
         background-repeat: no-repeat;
         min-height: 100vh;
         margin: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     #header, .header, #sidebar, .sidebar {
@@ -20,12 +24,16 @@
         margin: 0 !important;
         padding: 0 !important;
         width: 100% !important;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .login-container {
         width: 100%;
         max-width: 420px;
-        margin: 40px auto;
+        margin: 0 auto;
         padding: 35px 40px;
 
         background: linear-gradient(
@@ -36,7 +44,6 @@
 
         border-radius: 18px;
         box-shadow: 0 8px 30px rgba(25, 20, 90, 0.3);
-        transform: translateY(-20px);
         border: 1px solid rgba(255,255,255,0.6);
     }
 
@@ -99,7 +106,7 @@
     @media (max-width: 576px) {
         .login-container {
             width: 92%;
-            margin: 50px auto;
+            margin: 0 auto;
             padding: 25px 20px;
         }
     }

@@ -4,7 +4,7 @@
 
 <style>
     #main {
-        background-image: url("{{ asset('assets/img/3.jpg') }}");
+        background-image: url("{{ asset('assets/img/6.jpg') }}");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -12,10 +12,11 @@
         min-height: 100vh;
     }
 </style>
+
 <div class="container-fluid">
 
     <h2 class="mb-4 fw-bold text-white">
-        Welcome karyawan <?php echo session('u')?> to the Library Management System
+        Welcome <?php echo (session('level')); ?> <?php echo session('u')?> to the Library Management System
     </h2>
 
     <div class="table-responsive">

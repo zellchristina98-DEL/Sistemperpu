@@ -107,7 +107,7 @@
 
         <h4>Input Data Siswa</h4>
 
-        <form action="/swa" method="POST">
+       <form action="/swa" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="mb-3">
@@ -135,10 +135,15 @@
                 <input type="text" name="rombel" class="form-control" required>
             </div>
 
-            <div class="mb-4">
+            <div class="mb-3">
                 <label class="form-label">NIS</label>
                 <input type="text" name="nis" class="form-control" required>
             </div>
+
+          <div class="mb-3">
+    <label class="form-label">Foto Profil Siswa</label>
+    <input type="file" name="image" class="form-control" accept="image/*" required>
+</div>
 
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary">

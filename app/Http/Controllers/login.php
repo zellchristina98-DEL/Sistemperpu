@@ -38,6 +38,7 @@ public function aksilogin(Request $request)
     $password = $request->input('p');
 
     $jalur = new buku;
+
     $whereUser = array(
         'username' => $username,
         'password' => $password
@@ -46,13 +47,15 @@ public function aksilogin(Request $request)
     $hasilUser = $jalur->pull('users', $whereUser);
 
     if ($hasilUser) {
+
         $cekKaryawan = $jalur->pull('petugas', ['iduser' => $hasilUser->iduser]);
 
         if ($cekKaryawan) {
             session([
                 'u'      => $hasilUser->username,
                 'iduser' => $hasilUser->iduser,
-                'image'  => $cekKaryawan->image
+                'image'  => $cekKaryawan->image,
+                'level'  => $cekKaryawan->level
             ]);
 
             return redirect()->intended('/homeKaryawans');
@@ -63,7 +66,9 @@ public function aksilogin(Request $request)
         if ($cekSiswa) {
             session([
                 'u'      => $hasilUser->username,
-                'iduser' => $hasilUser->iduser
+                'iduser' => $hasilUser->iduser,
+                'image'  => $cekSiswa->image,
+                'level'  => 'siswa'
             ]);
 
             return redirect()->intended('/homeSiswa');
@@ -91,36 +96,49 @@ public function aksilogin(Request $request)
     }
 
     public function aksiinputsiswa(Request $request)
-    {
-        $us     = $request->input('us');
-        $p      = $request->input('p');
-        $e      = $request->input('e');
-        $nsiswa = $request->input('nsiswa');
-        $rombel = $request->input('rombel');
-        $nis    = $request->input('nis');
+{
+    $us     = $request->input('us');
+    $p      = $request->input('p');
+    $e      = $request->input('e');
+    $nsiswa = $request->input('nsiswa');
+    $rombel = $request->input('rombel');
+    $nis    = $request->input('nis');
 
-        $jalur = new buku;
-        $dataUser = array(
-            "username" => $us,
-            "password" => $p,
-            "Email"    => $e
-        );
-        $jalur->tambah('users', $dataUser);
-        $userBaru = $jalur->pull('users', ['username' => $us]);
+    $jalur = new buku;
 
-        if ($userBaru) {
-            $dataSiswa = array(
-                "IDUser"    => $userBaru->iduser,
-                "NamaSiswa" => $nsiswa,
-                "Rombel"    => $rombel,
-                "NIS"       => $nis
-            );
-            $jalur->tambah('siswas', $dataSiswa);
-        }
-
-        return redirect('/');
+    if (!$request->hasFile('image')) {
+        return back()->withErrors(['image' => 'Foto siswa wajib diunggah!']);
     }
 
+    $foto = $request->file('image');
+    $filename = time() . '_' . $foto->getClientOriginalName();
+
+    $foto->move(public_path('assets/img'), $filename);
+
+    $dataUser = array(
+        "username" => $us,
+        "password" => $p,
+        "Email"    => $e
+    );
+
+    $jalur->tambah('users', $dataUser);
+
+    $userBaru = $jalur->pull('users', ['username' => $us]);
+
+    if ($userBaru) {
+        $dataSiswa = array(
+            "IDUser"    => $userBaru->iduser,
+            "NamaSiswa" => $nsiswa,
+            "Rombel"    => $rombel,
+            "NIS"       => $nis,
+            "image"     => $filename
+        );
+
+        $jalur->tambah('siswas', $dataSiswa);
+    }
+
+    return redirect('/');
+}
   public function aksiinputkry(Request $request)
 {
     $us      = $request->input('us');
@@ -456,5 +474,130 @@ public function deletepengembalian($id)
     $jalur = new buku;
     $jalur->hapuspengembalian($id);
     return redirect('/homepengembalian');
+}
+public function aksitanggal(Request $Request)
+{
+    if (session('u')) {
+
+        $tgl_awal = $Request->input('tgl_awal');
+        $tgl_akhir = $Request->input('tgl_akhir');
+
+        $jalur = new buku;
+
+        $data['buku'] = $jalur->tampil('buku');
+        $data['peminjaman'] = $jalur->peminjamanjoin();
+        $data['pengembalian'] = $jalur->pengembalianjoin();
+        $data['denda'] = $jalur->dendajoin();
+
+        if ($tgl_awal && $tgl_akhir) {
+
+            $data['peminjaman'] = collect($data['peminjaman'])->filter(function ($value) use ($tgl_awal, $tgl_akhir) {
+                $tanggal = date('Y-m-d', strtotime($value->TglPeminjaman));
+                return $tanggal >= $tgl_awal && $tanggal <= $tgl_akhir;
+            });
+
+            $data['pengembalian'] = collect($data['pengembalian'])->filter(function ($value) use ($tgl_awal, $tgl_akhir) {
+                $tanggal = date('Y-m-d', strtotime($value->TglPengembalian));
+                return $tanggal >= $tgl_awal && $tanggal <= $tgl_akhir;
+            });
+        }
+
+        return view('laporan', $data);
+
+    } else {
+        return redirect('/');
+    }
+}
+
+
+public function aksiexcel(Request $Request)
+{
+    if (session('u')) {
+
+        $tgl_awal = $Request->input('tgl_awal');
+        $tgl_akhir = $Request->input('tgl_akhir');
+
+        $jalur = new buku;
+
+        $data['buku'] = $jalur->tampil('buku');
+        $data['peminjaman'] = $jalur->peminjamanjoin();
+        $data['pengembalian'] = $jalur->pengembalianjoin();
+        $data['denda'] = $jalur->dendajoin();
+
+        if ($tgl_awal && $tgl_akhir) {
+
+            $data['peminjaman'] = collect($data['peminjaman'])->filter(function ($value) use ($tgl_awal, $tgl_akhir) {
+                $tanggal = date('Y-m-d', strtotime($value->TglPeminjaman));
+                return $tanggal >= $tgl_awal && $tanggal <= $tgl_akhir;
+            });
+
+            $data['pengembalian'] = collect($data['pengembalian'])->filter(function ($value) use ($tgl_awal, $tgl_akhir) {
+                $tanggal = date('Y-m-d', strtotime($value->TglPengembalian));
+                return $tanggal >= $tgl_awal && $tanggal <= $tgl_akhir;
+            });
+        }
+
+        return response()
+            ->view('laporan', $data)
+            ->header('Content-Type', 'application/vnd.ms-excel')
+            ->header('Content-Disposition', 'attachment; filename="laporan-perpustakaan.xls"');
+
+    } else {
+        return redirect('/');
+    }
+}
+
+
+public function editsiswa($id)
+{
+    $jalur = new buku;
+
+    $data['siswa'] = $jalur->pull('siswas', [
+        'IDSiswa' => $id
+    ]);
+
+    if (!$data['siswa']) {
+        return redirect('/homeSiswa');
+    }
+
+    return view('editsiswa', $data);
+}
+
+
+public function updatesiswa(Request $request, $id)
+{
+    $jalur = new buku;
+
+    $data = [
+        'NamaSiswa' => $request->NamaSiswa,
+        'Rombel' => $request->Rombel,
+        'NIS' => $request->NIS
+    ];
+
+    if ($request->hasFile('image')) {
+
+        $filename = time() . '_' . $request->file('image')->getClientOriginalName();
+
+        $request->file('image')->move(public_path('assets/img'), $filename);
+
+        $data['image'] = $filename;
+
+        if (session('level') == 'siswa') {
+            session(['image' => $filename]);
+        }
+    }
+
+    $jalur->perbaruiData('siswas', $data, $id);
+
+    return redirect('/homeSiswa');
+}
+
+public function deletesiswa($id)
+{
+    $jalur = new buku;
+
+    $jalur->hapus('siswas', $id);
+
+    return redirect('/homeSiswa');
 }
 }

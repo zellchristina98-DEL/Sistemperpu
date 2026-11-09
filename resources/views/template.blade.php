@@ -5,4 +5,6 @@
     @yield('content')
 </main>
 
-@include('footer')
+@if (request()->getPathInfo() != '/')
+    @include('footer')
+@endif
