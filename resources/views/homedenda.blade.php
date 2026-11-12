@@ -23,8 +23,9 @@
 </div>
 <?php } ?>
 
-<div class="table-responsive">
-    <table class="table table-striped table-hover align-middle">
+<div class="card_body bg-light p-4 rounded shadow-sm">
+        <table class="table table-striped table-hover align-middle">
+            <h2>DATA DENDA</H2>
 
         <thead class="table-dark">
             <tr>

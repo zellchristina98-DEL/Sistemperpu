@@ -19,8 +19,9 @@
         Welcome <?php echo (session('level')); ?> <?php echo session('u')?> to the Library Management System
     </h2>
 
-    <div class="table-responsive">
+    <div class="card_body bg-light p-4 rounded shadow-sm">
         <table class="table table-striped table-hover align-middle">
+            <h2>DATA PENGGUNA</H2>
 
             <thead class="table-dark">
                 <tr>

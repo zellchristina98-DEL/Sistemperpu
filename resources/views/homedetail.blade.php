@@ -14,8 +14,9 @@
 
 <h2 class="mb-4 fw-bold text-white">Detail Buku Peminjaman</h2>
 
-<div class="table-responsive">
-    <table class="table table-striped table-hover align-middle">
+<div class="card_body bg-light p-4 rounded shadow-sm">
+        <table class="table table-striped table-hover align-middle">
+            <h2>DATA DETAIL</H2>
         <thead class="table-dark">
             <tr>
                 <th>No</th>

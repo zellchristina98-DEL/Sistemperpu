@@ -20,8 +20,9 @@
         Welcome Siswa <?php echo session('u')?> to the Library Management System
     </h2>
 
-    <div class="table-responsive">
+    <div class="card_body bg-light p-4 rounded shadow-sm">
         <table class="table table-striped table-hover align-middle">
+            <h2>DATA SISWA</H2>
 
             <thead class="table-dark">
                 <tr>
